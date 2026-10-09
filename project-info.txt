@@ -6,3 +6,6 @@ Features:
 2. View cart
 3. Update cart/ remove from cart
 4. payment status
+
+New Feature:
+Users can pay with gpay or cash 
