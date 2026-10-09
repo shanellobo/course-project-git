@@ -1,0 +1,8 @@
+Shopping cart
+Course Project
+
+Features:
+1. add to cart
+2. View cart
+3. Update cart/ remove from cart
+4. payment status
