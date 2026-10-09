@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Receipt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .receipt-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .total {
+            text-align: right;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        .thank-you {
+            text-align: center;
+            margin-top: 30px;
+            font-style: italic;
+        }
+        .payment-options {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .payment-options button {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .payment-options button:hover {
+            background-color: #3a5bef;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>ShopEasy</h1>
+        <p>123 MG Road, Mangalore</p>
+        <p>Phone: (0824) 123-4567</p>
+    </div>
+
+    <div class="receipt-info">
+        <div>
+            <p><strong>Order Date:</strong> {{ date }}</p>
+            <p><strong>Customer:</strong> {{ customer_info.name }}</p>
+        </div>
+        <div>
+            <p><strong>Email:</strong> {{ customer_info.email }}</p>
+            <p><strong>Address:</strong> {{ customer_info.address }}</p>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>₹{{ "%.2f"|format(item.product.price) }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>₹{{ "%.2f"|format(item.subtotal) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="total">
+        <p>Subtotal: ₹{{ "%.2f"|format(total) }}</p>
+        <p>Tax (7.5%): ₹{{ "%.2f"|format(total * 0.075) }}</p>
+        <p>Grand Total: ₹{{ "%.2f"|format(total * 1.075) }}</p>
+    </div>
+
+    <div class="payment-options">
+        <h2>Choose a Payment Option</h2>
+        <button onclick="alert('Credit Card Payment successful')">Pay with Credit Card</button>
+        <button onclick="alert('Google Pay payment successful')">Pay with Google Pay</button>
+        <button onclick="alert('Cash on Delivery has been successful')">Cash on Delivery</button>
+    </div>
+
+    <div class="thank-you">
+        <p>Thank you for shopping with us!</p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            window.print();
+        }
+    </script>
+</body>
+</html>

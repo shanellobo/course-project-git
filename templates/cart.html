@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Your Shopping Cart</h1>
+    
+    {% if not cart_items %}
+        <p>Your cart is empty</p>
+        <a href="/" class="btn">Continue Shopping</a>
+    {% else %}
+        <div class="cart-items">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart_items %}
+                    <tr>
+                        <td>
+                            <div class="cart-product">
+                                <img src="{{ item.product.image }}" alt="{{ item.product.name }}">
+                                <span>{{ item.product.name }}</span>
+                            </div>
+                        </td>
+                        <td>₹{{ "%.2f"|format(item.product.price) }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>₹{{ "%.2f"|format(item.subtotal) }}</td>
+                        <td>
+                            <form action="/remove_from_cart" method="POST">
+                                <input type="hidden" name="product_id" value="{{ item.product.id }}">
+                                <button type="submit" class="remove-btn">Remove</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            
+            <div class="cart-summary">
+                <div class="total">
+                    <span>Total:</span>
+                    <span>₹{{ "%.2f"|format(total) }}</span>
+                </div>
+                <a href="/checkout" class="checkout-btn">Proceed to Checkout</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
