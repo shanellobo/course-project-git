@@ -1,1 +1,1 @@
-# course-project-git
+This project demonstrates basic Git commands.
